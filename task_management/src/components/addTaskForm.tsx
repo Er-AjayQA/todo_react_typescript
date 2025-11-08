@@ -1,24 +1,27 @@
 import { useState, type FormEvent } from "react";
-import { useTodos } from "../store/todos";
+import { useTasks } from "../store/tasks";
 
-export const AddTodoForm = () => {
+export const AddTaskForm = () => {
   const [task, setTask] = useState("");
-  const { handleAddTodo } = useTodos();
+  const { handleAddTask } = useTasks();
 
   const handleFormSubmit = (e: FormEvent<HTMLElement>) => {
     e.preventDefault();
-    handleAddTodo(task);
+    handleAddTask(task);
     setTask("");
   };
 
   return (
-    <form onSubmit={handleFormSubmit}>
+    <form onSubmit={handleFormSubmit} className="p-10 bg-white rounded-lg">
       <input
         type="text"
         value={task}
         placeholder="Enter task...."
         onChange={(e) => setTask(e.target.value)}
+        autoFocus={true}
       />
+
+      <textarea name="" id="" />
       <button type="submit">Add Task</button>
     </form>
   );
