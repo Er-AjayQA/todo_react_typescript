@@ -1,10 +1,11 @@
-import "./App.css";
-import { FormPopup } from "./components/formPopup";
+import { AddTaskForm } from "./components/addTaskForm";
+import { Overlay } from "./components/overlay";
+import { TasksDetail } from "./components/taskDetail";
 import { TasksList } from "./components/tasksList";
 import { useTasks } from "./store/tasks";
 
 function App() {
-  const { formStatus, handleToggleForm } = useTasks();
+  const { taskDetailShow, formStatus, handleToggleForm } = useTasks();
 
   return (
     <>
@@ -14,22 +15,28 @@ function App() {
             <h1 className="text-2xl">ToDo (React+Typescript)</h1>
           </div>
 
-          <div className="flex flex-col gap-5 border p-5 rounded shadow-lg h-[80%]">
-            <div className="flex items-center justify-between">
-              <h3 className="text-lg font-semibold">Tasks Listing</h3>
-              <button
-                onClick={handleToggleForm}
-                className="bg-blue-900 py-2 px-8 rounded-lg text-white font-medium"
-              >
-                Create New Task
-              </button>
-            </div>
+          {taskDetailShow ? (
+            <TasksDetail />
+          ) : (
+            <div className="flex flex-col gap-5 border p-5 rounded shadow-lg h-[80%]">
+              <div className="flex items-center justify-between">
+                <h3 className="text-lg font-semibold">Tasks Listing</h3>
+                <button
+                  onClick={handleToggleForm}
+                  className="bg-blue-900 py-2 px-8 rounded-lg text-white font-medium hover:bg-blue-800"
+                >
+                  Create New Task
+                </button>
+              </div>
 
-            <TasksList />
-          </div>
+              <TasksList />
+            </div>
+          )}
         </div>
       </main>
-      {formStatus && <FormPopup />}
+
+      <AddTaskForm />
+      {formStatus && <Overlay />}
     </>
   );
 }
